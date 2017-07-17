@@ -8,6 +8,7 @@ const {USER} = require('./models');
 
 const app = express();
 app.use(bodyParser.json());
+app.use(express.static('public'));
 
 //Endpoints
 
@@ -17,7 +18,8 @@ app.get('/', (req, res) => {
     .findOne(req.params.title)
     .then(user => res.json(user.apiRepr()))
     .catch(err => {
-        res.status(500).json({message: 'Intiehieernal error'})
+        console.log("testing")
+        res.status(500).json({message: 'Internal error'})
     })
 })
 
