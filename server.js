@@ -15,12 +15,40 @@ app.use(express.static('public'));
 app.get('/', (req, res) => {
     console.log("get is happening");
     USER
-    .findOne(req.params.title)
+    .findOne(req.params.name)
     .then(user => res.json(user.apiRepr()))
     .catch(err => {
         console.log("testing")
         res.status(500).json({message: 'Internal error'})
     })
+})
+
+app.post('/', (req, res) => {
+    console.log("post is happening");
+    console.log(req.body.name);
+    console.log(req.body.date);
+    const requiredFields = ['name'];
+    requiredFields.forEach(field => {
+        if (! (field in req.body && req.body[field])) {
+            res.status(400).json({message: `Need a value for ${field}`});
+        }
+    });
+
+    USER
+        .create({
+            username: req.body.username,
+            password: req.body.password,
+            email: req.body.email,
+            name: req.body.name,
+            date: req.body.date,
+            rating: req.body.rating})
+        .then(
+            user => res.status(201).json(user.apiRepr()))
+        .catch(err => {
+            console.log("Post isn't working")
+            res.status(500).json({message: 'Internal error from Post'});
+        })
+
 })
 
 

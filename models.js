@@ -5,16 +5,19 @@ const userSchema = mongoose.Schema({
     password: {type: String, required: true},
     email: {type: String, required: true},
     myList: [{
-        title : {type: String, required: true},
-        type: {type: String, required: true},
-        date: Date,
-        rating: Number
+        name: {type: String, required: true},
+        date: {type: String, default: ""},
+        rating: {type: Number, default: ""}
     }]
  });
 
  userSchema.methods.apiRepr = function() {
      return {
-         myList: this.myList
+         myList: [{
+            name: this.name,
+            date: this.date,
+            rating: this.rating
+         }]
     }
  }
 
