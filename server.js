@@ -28,40 +28,44 @@ app.use('*', function(req, res) {
 
 let server;
 
-// function runServer() {
-//   return new Promise((resolve, reject) => {
-//     mongoose.connect(DATABASE_URL, err => {
-//       if (err) {
-//         return reject(err);
-//       }
-//       server = app.listen(PORT, () => {
-//         console.log(`Your app is listening on port ${PORT}`);
-//         resolve();
-//       })
-//       .on('error', err => {
-//         mongoose.disconnect();
-//         reject(err);
-//       });
-//     });
-//   });
-// }
+function runServer() {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(DATABASE_URL, err => {
+      if (err) {
+        return reject(err);
+      }
+      server = app.listen(PORT, () => {
+        console.log(`Your app is listening on port ${PORT}`);
+        resolve();
+      })
+      .on('error', err => {
+        mongoose.disconnect();
+        reject(err);
+      });
+    });
+  });
+}
 
-// function closeServer() {
-//   return mongoose.disconnect().then(() => {
-//      return new Promise((resolve, reject) => {
-//        console.log('Closing server');
-//        server.close(err => {
-//            if (err) {
-//                return reject(err);
-//            }
-//            resolve();
-//        });
-//      });
-//   });
-// }
+function closeServer() {
+  return mongoose.disconnect().then(() => {
+     return new Promise((resolve, reject) => {
+       console.log('Closing server');
+       server.close(err => {
+           if (err) {
+               return reject(err);
+           }
+           resolve();
+       });
+     });
+  });
+}
 
-// module.exports = {app, runServer, closeServer};
+if (require.main === module) {
+  runServer().catch(err => console.error(err));
+};
 
-app.listen(process.env.PORT || 8080, () => {
-  console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
-});
+module.exports = {app, runServer, closeServer};
+
+// app.listen(process.env.PORT || 8080, () => {
+//   console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
+// });
