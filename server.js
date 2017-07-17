@@ -8,11 +8,12 @@ const {USER} = require('./models');
 
 const app = express();
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static('public'));
 
 //Endpoints
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
     console.log("get is happening");
     USER
     .findOne(req.params.name)
@@ -23,31 +24,31 @@ app.get('/', (req, res) => {
     })
 })
 
-app.post('/', (req, res) => {
+app.post('/api', (req, res) => {
     console.log("post is happening");
-    console.log(req.body.name);
-    console.log(req.body.date);
-    const requiredFields = ['name'];
-    requiredFields.forEach(field => {
-        if (! (field in req.body && req.body[field])) {
-            res.status(400).json({message: `Need a value for ${field}`});
-        }
-    });
+    console.log(req.body);
+    // console.log(req.body.date);
+    // const requiredFields = ['name'];
+    // requiredFields.forEach(field => {
+    //     if (! (field in req.body && req.body[field])) {
+    //         res.status(400).json({message: `Need a value for ${field}`});
+    //     }
+    // });
 
-    USER
-        .create({
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email,
-            name: req.body.name,
-            date: req.body.date,
-            rating: req.body.rating})
-        .then(
-            user => res.status(201).json(user.apiRepr()))
-        .catch(err => {
-            console.log("Post isn't working")
-            res.status(500).json({message: 'Internal error from Post'});
-        })
+    // USER
+    //     .create({
+    //         username: req.body.username,
+    //         password: req.body.password,
+    //         email: req.body.email,
+    //         name: req.body.name,
+    //         date: req.body.date,
+    //         rating: req.body.rating})
+    //     .then(
+    //         user => res.status(201).json(user.apiRepr()))
+    //     .catch(err => {
+    //         console.log("Post isn't working")
+    //         res.status(500).json({message: 'Internal error from Post'});
+    //     })
 
 })
 
