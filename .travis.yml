@@ -2,3 +2,10 @@ language: node_js
 node_js: node
 services:
 - mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: P6zPZRAHZWs9cOAV+hhacY9HZQ6BobNW2JjeJAIMHeinJvp2CfJMXnAXd1xt0hEgYv0S68/8jZcuaRK4JkP7bpf6mARpAMyRp8DThcHmH1v5uVLAOKUjC6fyePrlTxxejZhRMN6gF20AN7WmdOaTTQ6M+4+lEReD6jvnEmpwyfKoBSECV+RoFu38BwuTLHhBfTQX2oKBviIfZbWGT5b4K5tQQK4Z5Eaz7fMJXubZ+3Kgs+TodHo0jG/pKMSGGQE4bapC2FPED/apR/6jaTxzLFr3v6bzXu0NPZV4q6/4fTdf8k0lwucf1vp1OAdUv3ChkdSP09NznBBOdngsWo/CIzF7h8z33FbWvOuduorhdqCeXxzTfJ/34cVAKqu4N1CBFvvthoLDH6H7jnU7Iha/lZCQ1esuV6gPuDujZyZJYNxF+FR0IuGOgeRhUIDGiwLKPqhic4lyfKvC37+Vx9/rtGCEhzfk2eC4V2brmWmAiJZ+FyvQVOuBLTyrn3YwejNekRG0AxBsEv6JvfV1FvwT7a8m2hgdsfPjZj3i+WoOUSkD6YpA3nc1VIANb4y5JCFjjilOtib8cajqUnwnJKDJ1pFzW9AYeYXo05vozQCiGkzSi1alWJ9oEwn04/5kuUWQUZGqtMOaNQaLmdhALEzV4DRo28AUQwoP56P5Jr/Qm8w=
+  app: floating-scrubland-74394
+  on:
+    repo: zwillerzoog/my-rex
