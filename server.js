@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
     .findOne(req.params.title)
     .then(user => res.json(user.apiRepr()))
     .catch(err => {
-        res.status(500).json({message: 'Internal error'})
+        res.status(500).json({message: 'Intiehieernal error'})
     })
 })
 
