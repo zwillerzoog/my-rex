@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const listSchema = mongoose.Schema({
   name: {type: String, required: true},
@@ -12,6 +13,20 @@ const userSchema = mongoose.Schema({
   email: {type: String, required: true},
   myList: [listSchema]
 });
+
+//prevents rehashing of password on update
+userSchema.pre('save', function(next){
+  if (this.isModified('password')) {
+    this.password = this._hashPassword(this.password);
+    return next();
+  }
+  return next();
+})
+
+//Automatically hashes USER password if password is updated
+userSchema.methods._hashPassword = function(password) {
+    return bcrypt.hashSync(password, 12);
+}
 
 userSchema.methods.apiRepr = function() {
   return {

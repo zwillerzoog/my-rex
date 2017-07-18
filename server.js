@@ -46,7 +46,7 @@ const authenticate = passport.authenticate('basic', {session: false});
 //Endpoints
 
 app.get('/api/users', (req, res) => {
-  console.log('get is happening');
+  console.log('get all is happening');
   USER
     .find()
     .then(users => {
@@ -88,7 +88,7 @@ app.get('/api/users/:id/list', (req, res) => {
     });
 });
 
-app.post('/api', authenticate, (req, res) => {
+app.post('/api/signup', (req, res) => {
   console.log('post is happening');
   console.log(req.body);
   console.log(req.body.date);
@@ -161,9 +161,9 @@ app.use('*', function(req, res) {
 
 let server;
 
-function runServer() {
+function runServer(dbUrl) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(DATABASE_URL, err => {
+    mongoose.connect(dbUrl, err => {
       if (err) {
         return reject(err);
       }
@@ -194,11 +194,7 @@ function closeServer() {
 }
 
 if (require.main === module) {
-  runServer().catch(err => console.error(err));
+  runServer(DATABASE_URL).catch(err => console.error(err));
 }
 
 module.exports = {app, runServer, closeServer};
-
-// app.listen(process.env.PORT || 8080, () => {
-//   console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
-// });

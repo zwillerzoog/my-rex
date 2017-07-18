@@ -4,6 +4,8 @@ mongoose.Promise = global.Promise;
 const { PORT, DATABASE_URL } = require('./config');
 const { USER } = require('./models');
 
+const {app, runServer, closeServer} = require('./server');
+
 mongoose.connect(DATABASE_URL, () => {
 
 //   USER
