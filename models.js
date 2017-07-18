@@ -1,23 +1,23 @@
 const mongoose = require('mongoose');
 
+const listSchema = mongoose.Schema({
+        name: {type: String, required: true},
+        date: {type: String, default: ""},
+        rating: {type: Number, default: ""}
+});
+
 const userSchema = mongoose.Schema({
     username: {type: String, required: true},
     password: {type: String, required: true},
     email: {type: String, required: true},
-    myList: [{
-        name: {type: String, required: true},
-        date: {type: String, default: ""},
-        rating: {type: Number, default: ""}
-    }]
- });
+    myList: [listSchema]
+});
 
  userSchema.methods.apiRepr = function() {
      return {
-         myList: [{
             name: this.name,
             date: this.date,
             rating: this.rating
-         }]
     }
  }
 
