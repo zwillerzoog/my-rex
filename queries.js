@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 const { PORT, DATABASE_URL } = require('./config');
-const { USER } = require('./models');
+const { User } = require('./models');
 
 const {app, runServer, closeServer} = require('./server');
 
 mongoose.connect(DATABASE_URL, () => {
 
-//   USER
+//   User
 //     .findByIdAndUpdate('596e57197b23864b3c305f26',
 //       {
 //         $push: { myList: { name: 'foo', date: 'blah', rating: 4 } }
@@ -21,7 +21,7 @@ mongoose.connect(DATABASE_URL, () => {
 //       console.log(err);
 //     });
 
-  // USER
+  // User
   // .create({
   //         username: 'myUser',
   //         password: 'myPass',
@@ -39,7 +39,7 @@ mongoose.connect(DATABASE_URL, () => {
 
   app.get('/api/users/:userId/list/:listId', (req, res) => {
     console.log('get by id is happening');
-    USER
+    User
       .findById(req.params.id)
       .then(user => {
         console.log(user.myList);
@@ -74,7 +74,7 @@ mongoose.connect(DATABASE_URL, () => {
   });
 
   // get all
-  // USER
+  // User
   // .find()
   // .then(users => {
   //     let list = users.myList;

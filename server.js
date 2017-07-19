@@ -3,6 +3,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
+const fetch = require('node-fetch')
 
 const passport = require('passport');
 const {BasicStrategy} = require('passport-http');
@@ -10,7 +11,7 @@ const bcrypt = require('bcrypt');
 
 mongoose.Promise = global.Promise;
 const {PORT, DATABASE_URL} = require('./config');
-const {USER} = require('./models');
+const {User} = require('./models');
 
 const app = express();
 app.use(bodyParser.json());
@@ -20,7 +21,7 @@ app.use(express.static('public'));
 const basicStrategy = new BasicStrategy(function (username, password, done) {
   let user;
   console.log(username, 'username');
-  USER
+  User
     .findOne({username: username})
     
     .then(_user => {
@@ -48,9 +49,11 @@ const authenticate = passport.authenticate('basic', {session: false});
 
 //Endpoints
 
+//Get all User objects
+
 app.get('/api/users', (req, res) => {
   console.log('get all is happening');
-  USER
+  User
     .find()
     .then(users => {
       console.log(users);
@@ -62,10 +65,11 @@ app.get('/api/users', (req, res) => {
     });
 });
 
+//Get one unique list object
 
 app.get('/api/users/:id', (req, res) => {
   console.log('get by id is happening');
-  USER
+  User
     .findById(req.params.id)
     .then(user => {
       console.log(user);
@@ -77,19 +81,40 @@ app.get('/api/users/:id', (req, res) => {
     });
 });
 
+//Get All endpoint for only the list values
+
 app.get('/api/users/:id/list', (req, res) => {
   console.log('get by id is happening');
-  USER
+  User
     .findById(req.params.id)
     .then(user => {
       console.log(user);
       res.status(200).json(user.myList);
     })
     .catch(err => {
-      console.log('testing');
+      console.log(err);
       res.status(500).json({message: 'Internal error from GET'});
     });
 });
+
+//example url
+// https://tastedive.com/api/similar?q=pulp+fiction&info=1&k=277024-RestfulA-9WI50A5P
+
+  app.get('/api/recommendations/:name', (req, res) => {
+    console.log('get recommendations is happening');
+    const name = req.params.name;
+    //const query = name.replace(/ /g,"+");
+    //console.log(query);
+    const apiURL = `https://tastedive.com/api/similar?q=${name}&info=1&k=277024-RestfulA-9WI50A5P`;
+    return fetch (apiURL)
+      .then(results => {
+        res.status(200).json(results);
+      })
+      .catch(err => {
+        console.log('testing');
+        res.status(500).json({message: 'Internal error from GET'});
+      });
+  });
 
 app.post('/api/signup', (req, res) => {
   console.log('post is happening');
@@ -101,7 +126,7 @@ app.post('/api/signup', (req, res) => {
       res.status(400).json({message: `Need a value for ${field}`});
     }
   });
-  USER
+  User
     .create({
       username: req.body.username,
       password: req.body.password,
@@ -120,7 +145,7 @@ app.post('/api/signup', (req, res) => {
 });
 
 app.put('/api/:id', authenticate, (req, res) => {
-  USER
+  User
     .findByIdAndUpdate(req.params.id, 
       {
         //will be a set. have to delete the older version of the item
@@ -142,7 +167,7 @@ app.put('/api/:id', authenticate, (req, res) => {
 });
 
 app.delete('/api/:id', authenticate, (req, res) => {
-  USER
+  User
     .findByIdAndRemove(req.params.id)
     .then(result => {
       console.log(result);

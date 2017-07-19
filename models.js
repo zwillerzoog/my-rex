@@ -42,7 +42,6 @@ userSchema.methods.listRepr = function() {
   };
 };
 
-const USER = mongoose.model('USER', userSchema);
-const LIST = mongoose.model('LIST', listSchema);
+const User = mongoose.model('User', userSchema);
 
-module.exports = {USER, LIST};
+module.exports = {User};

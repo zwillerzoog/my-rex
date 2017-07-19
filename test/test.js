@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 
 const should = chai.should();
 
-const { USER, LIST } = require('../models');
+const { User } = require('../models');
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
 
@@ -28,21 +28,12 @@ const userTest = {
   username: faker.internet.userName(),
   password: 'test',
   email: faker.internet.email(),
-  myList: []
+  myList: [listTest, listTest, listTest]
 };
 
+let testUser;
 function seedUserData() {
-  //console.log(userTest);
-  return USER.create(userTest);
-}
-
-function seedListData() {
-  //console.log(listTest);
-  const seedData = [];
-  for (let i = 1; i <= 10; i++) {
-    seedData.push(listTest);
-  }
-  return LIST.insertMany(seedData);
+  return User.create(userTest).then((user) => testUser = user);
 }
 
 function tearDownDb() {
@@ -60,15 +51,7 @@ describe('My Rex API Resource', function () {
   });
 
   beforeEach(function() {
-
     return seedUserData();
-
-  });
-
-  beforeEach(function() {
-
-    return seedListData();
-    
   });
 
   afterEach(function () {
@@ -88,7 +71,7 @@ describe('My Rex API Resource', function () {
           res = _res;
           res.should.have.status(200);
           res.body.should.have.lengthOf.at.least(1);
-          return USER.count();
+          return User.count();
         })
         .then(count => {
           res.body.should.have.lengthOf(count);
@@ -118,15 +101,46 @@ describe('My Rex API Resource', function () {
               'username', 'password', 'email');
           });
           resUser = res.body[0];
-          return USER.findById(resUser._id).exec();
+          return User.findById(resUser._id).exec();
         })
         .then(function (users) {
-          console.log('users!!!!!!!', users.id)
-          console.log('usersunderscore!!!!!!!', JSON.stringify(users._id))
-          resUser._id.should.equal(users._id);
+          resUser._id.should.equal(users.id);
           resUser.username.should.equal(users.username);
           resUser.password.should.equal(users.password);
           resUser.email.should.equal(users.email);
+        });
+    });
+
+    it.only('should return a specific user\'s list with right fields', function () {
+      // Strategy: Get back all users, and ensure they have expected keys
+ //console.log(resList, 'HELLOOOOOOOOOO')
+      let resList;
+      console.log(testUser.id)
+      return chai.request(app)
+       
+        .get(`/api/users/${testUser.id}/list`)
+        .then(function (res) {
+          res.should.have.status(200);
+          res.should.be.json;
+          //res.body console works... dotuser comes up undefined
+          //res.body.user.should.be.a('array');
+          //res.body.user.should.have.length.of.at.least(1);
+
+          res.body.forEach(function (list) {
+            list.should.be.a('object');
+            list.should.include.keys(
+              'name', 'date', 'rating');
+          });
+          resList = res.body[0];
+          console.log('RES BODY+++++++++++++', res.body[0]);
+          return User.findById(testUser.id).exec();
+         })
+        .then(function (user) {
+            let list = user.myList[0];
+          resList._id.should.equal(list.id);
+          resList.name.should.equal(list.name);
+          resList.date.should.equal(list.date);
+          resList.rating.should.equal(list.rating);
         });
     });
   });
