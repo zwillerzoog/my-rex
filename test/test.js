@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 
 const should = chai.should();
 
-const { USER } = require('../models');
+const { USER, LIST } = require('../models');
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
 
@@ -18,30 +18,31 @@ function generateRating() {
   return ratings[Math.floor(Math.random() * ratings.length)];
 }
 
-const userTest = {
-  username: faker.internet.userName(),
-  password: 'test',
-  email: faker.internet.email()
-};
-
 const listTest = {
   name: faker.lorem.sentence(),
   date: faker.date.past(),
   rating: generateRating()
 };
 
+const userTest = {
+  username: faker.internet.userName(),
+  password: 'test',
+  email: faker.internet.email(),
+  myList: []
+};
+
 function seedUserData() {
-  console.log(userTest);
+  //console.log(userTest);
   return USER.create(userTest);
 }
 
 function seedListData() {
-  console.log(listTest);
+  //console.log(listTest);
   const seedData = [];
   for (let i = 1; i <= 10; i++) {
     seedData.push(listTest);
   }
-  return USER.insertMany(seedData);
+  return LIST.insertMany(seedData);
 }
 
 function tearDownDb() {
@@ -58,15 +59,16 @@ describe('My Rex API Resource', function () {
     return runServer(TEST_DATABASE_URL);
   });
 
-  beforeEach(function (next) {
-    const seedDb = [seedUserData(), seedListData()];
-    Promise.all(seedDb)
-      .then(() => {
-        return next();
-      })
-      .catch((err) => {
-        console.log('error', err);
-      });
+  beforeEach(function() {
+
+    return seedUserData();
+
+  });
+
+  beforeEach(function() {
+
+    return seedListData();
+    
   });
 
   afterEach(function () {
@@ -97,31 +99,31 @@ describe('My Rex API Resource', function () {
     });
 
     it('should return users with right fields', function () {
-      // Strategy: Get back all restaurants, and ensure they have expected keys
+      // Strategy: Get back all users, and ensure they have expected keys
 
       let resUser;
       return chai.request(app)
 
         .get('/api/users')
         .then(function (res) {
-          console.log('res.body', res.body);
           res.should.have.status(200);
           res.should.be.json;
           //res.body console works... dotuser comes up undefined
-          res.body.users.should.be.a('array');
-          res.body.users.should.have.length.of.at.least(1);
+          //res.body.user.should.be.a('array');
+          //res.body.user.should.have.length.of.at.least(1);
 
-          res.body.users.forEach(function (users) {
+          res.body.forEach(function (users) {
             users.should.be.a('object');
             users.should.include.keys(
               'username', 'password', 'email');
           });
-           resUser = res.body.users[0];
-          return USER.findById(resUser.id);
+          resUser = res.body[0];
+          return USER.findById(resUser._id).exec();
         })
         .then(function (users) {
-
-          resUser.id.should.equal(users.id);
+          console.log('users!!!!!!!', users.id)
+          console.log('usersunderscore!!!!!!!', JSON.stringify(users._id))
+          resUser._id.should.equal(users._id);
           resUser.username.should.equal(users.username);
           resUser.password.should.equal(users.password);
           resUser.email.should.equal(users.email);

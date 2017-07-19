@@ -2,15 +2,15 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const listSchema = mongoose.Schema({
-  name: {type: String, required: false},
+  name: {type: String, required: true},
   date: {type: String, default: ''},
   rating: {type: Number, default: ''}
 });
 
 const userSchema = mongoose.Schema({
-  username: {type: String, required: false},
-  password: {type: String, required: false},
-  email: {type: String, required: false},
+  username: {type: String, required: true},
+  password: {type: String, required: true},
+  email: {type: String, required: true},
   myList: [listSchema]
 });
 
@@ -43,5 +43,6 @@ userSchema.methods.listRepr = function() {
 };
 
 const USER = mongoose.model('USER', userSchema);
+const LIST = mongoose.model('LIST', listSchema);
 
-module.exports = {USER};
+module.exports = {USER, LIST};

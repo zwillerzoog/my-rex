@@ -37,20 +37,41 @@ mongoose.connect(DATABASE_URL, () => {
   //     })
 
 
-app.get('/api/users/:id', (req, res) => {
-  console.log('get by id is happening');
-  USER
-    .findById(req.params.id)
-    .then(user => {
-      console.log(user);
-      res.status(200).json(user);
-    })
-    .catch(err => {
-      console.log('testing');
-      res.status(500).json({message: 'Internal error from GET'});
-    });
-});
+  app.get('/api/users/:userId/list/:listId', (req, res) => {
+    console.log('get by id is happening');
+    USER
+      .findById(req.params.id)
+      .then(user => {
+        console.log(user.myList);
 
+        return fetch (url); 
+
+      // res.status(200).json(user);
+      })
+      .then(results => {
+      res.status(200).json(results);
+
+      })
+      .catch(err => {
+        console.log('testing');
+        res.status(500).json({message: 'Internal error from GET'});
+      });
+  });
+
+//example url
+// https://tastedive.com/api/similar?q=pulp+fiction&info=1&k=277024-RestfulA-9WI50A5P
+
+  app.get('/api/recommendations/:name', (req, res) => {
+    console.log('get by id is happening');
+    return fetch (`tastedive.com?apikey=12345&name=${req.params.name}`)
+      .then(results => {
+        res.status(200).json(results);
+      })
+      .catch(err => {
+        console.log('testing');
+        res.status(500).json({message: 'Internal error from GET'});
+      });
+  });
 
   // get all
   // USER
