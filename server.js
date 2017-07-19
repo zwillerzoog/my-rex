@@ -4,9 +4,9 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 
-const passport = require('passport')
-const {BasicStrategy} = require('passport-http')
-const bcrypt = require('bcrypt')
+const passport = require('passport');
+const {BasicStrategy} = require('passport-http');
+const bcrypt = require('bcrypt');
 
 mongoose.Promise = global.Promise;
 const {PORT, DATABASE_URL} = require('./config');
@@ -19,6 +19,7 @@ app.use(express.static('public'));
 
 const basicStrategy = new BasicStrategy(function (username, password, done) {
   let user;
+  console.log(username, 'username');
   USER
     .findOne({username: username})
     
@@ -27,10 +28,12 @@ const basicStrategy = new BasicStrategy(function (username, password, done) {
       if (!user) {
         return done(null, false, {message: 'Incorrect username'});
       }
-      console.log(password, user.password, password === user.password)
-      return password === user.password;
+      //console.log('bcrypt', bcrypt.compare(password, user.password));
+      return bcrypt.compare(password, user.password);
+    //   password === user.password;
     })
     .then(isValid => {
+        console.log('isValid', isValid)
       if (!isValid) {
         return done(null, false, {message: 'Incorrect password'});
       }
@@ -118,19 +121,19 @@ app.post('/api/signup', (req, res) => {
 
 app.put('/api/:id', authenticate, (req, res) => {
   USER
-    .findByIdAndUpdate(req.params.id), 
-  {
-    //will be a set. have to delete the older version of the item
-    $push: {myList: {
-      name: req.body.name, 
-      date: req.body.date, 
-      rating:req.body.rating
-    }
-    }
-  }
+    .findByIdAndUpdate(req.params.id, 
+      {
+        //will be a set. have to delete the older version of the item
+        $push: {myList: {
+          name: req.body.name, 
+          date: req.body.date, 
+          rating:req.body.rating
+        }
+        }
+      })
     .then(results => {
-      console.log(results);
-      res.status(204);
+      console.log('results', results);
+      res.status(204).send('sent successfully');
     })
     .catch(err => {
       console.log(err);
