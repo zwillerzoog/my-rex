@@ -106,13 +106,19 @@ app.get('/api/recommendations/:name', (req, res) => {
   //const query = name.replace(/ /g,"+");
   //console.log(query);
   const apiURL = `https://tastedive.com/api/similar?q=${name}&info=1&k=277024-RestfulA-9WI50A5P`;
-  return fetch(apiURL)
+  return fetch(apiURL, {
+    'Content-Type': 'application/json'
+  })
     .then(results => {
-      console.log('results', results.json());
-      res.status(200).json(results);
+      console.log('results', results.body);
+      return results.json();
+    })
+    .then(resJson => {
+      //console.log(resJson)
+      return res.status(200).send(resJson);
     })
     .catch(err => {
-      console.log('testing');
+      console.log({err});
       res.status(500).json({ message: 'Internal error from GET' });
     });
 });

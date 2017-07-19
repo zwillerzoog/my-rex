@@ -148,7 +148,7 @@ describe('My Rex API Resource', function () {
           .post('/api/signup')
           .send(userTest)
           .then(function (res) {
-            console.log('res!!!', res.body.id)
+            console.log('res!!!', res.body)
             res.should.have.status(201);
             res.should.be.json;
             res.body.should.be.a('object');
@@ -156,14 +156,14 @@ describe('My Rex API Resource', function () {
               'username', 'email', 'myList');
             res.body.username.should.equal(userTest.username);
             res.body.email.should.equal(userTest.email);
-            return User.findById(res.body.id);
+            return User.findById(res.body._id);
           })
           .then(function (user) {
-            // console.log('USER&^&^^&^', user);
-            // console.log('USERTEST&^&^^&^', userTest);
-          //   user.username.should.equal(userTest.username);
-          //   user.email.should.equal(userTest.email);
-          //   user.myList.should.equal(userTest.myList);
+            console.log('USER&^&^^&^', user);
+            console.log('USERTEST&^&^^&^', userTest);
+            user.username.should.equal(userTest.username);
+            user.email.should.equal(userTest.email);
+            //user.myList.should.equal(userTest.myList);
           });
       });
     });

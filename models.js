@@ -30,6 +30,7 @@ userSchema.methods._hashPassword = function(password) {
 
 userSchema.methods.apiRepr = function() {
   return {
+    _id: this._id,
     username: this.username,
     email: this.email,
     myList: this.myList
