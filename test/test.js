@@ -50,7 +50,7 @@ describe('My Rex API Resource', function () {
     return runServer(TEST_DATABASE_URL);
   });
 
-  beforeEach(function() {
+  beforeEach(function () {
     return seedUserData();
   });
 
@@ -111,13 +111,11 @@ describe('My Rex API Resource', function () {
         });
     });
 
-    it.only('should return a specific user\'s list with right fields', function () {
+    it('should return a specific user\'s list with right fields', function () {
       // Strategy: Get back all users, and ensure they have expected keys
- //console.log(resList, 'HELLOOOOOOOOOO')
       let resList;
-      console.log(testUser.id)
       return chai.request(app)
-       
+
         .get(`/api/users/${testUser.id}/list`)
         .then(function (res) {
           res.should.have.status(200);
@@ -132,19 +130,45 @@ describe('My Rex API Resource', function () {
               'name', 'date', 'rating');
           });
           resList = res.body[0];
-          console.log('RES BODY+++++++++++++', res.body[0]);
           return User.findById(testUser.id).exec();
-         })
+        })
         .then(function (user) {
-            let list = user.myList[0];
+          let list = user.myList[0];
           resList._id.should.equal(list.id);
           resList.name.should.equal(list.name);
           resList.date.should.equal(list.date);
           resList.rating.should.equal(list.rating);
         });
     });
+
+    describe('POST Endpoint', function () {
+      it.only('should create a new user', function () {
+
+        return chai.request(app)
+          .post('/api/signup')
+          .send(userTest)
+          .then(function (res) {
+            console.log('res!!!', res.body.id)
+            res.should.have.status(201);
+            res.should.be.json;
+            res.body.should.be.a('object');
+            res.body.should.include.keys(
+              'username', 'email', 'myList');
+            res.body.username.should.equal(userTest.username);
+            res.body.email.should.equal(userTest.email);
+            return User.findById(res.body.id);
+          })
+          .then(function (user) {
+            // console.log('USER&^&^^&^', user);
+            // console.log('USERTEST&^&^^&^', userTest);
+          //   user.username.should.equal(userTest.username);
+          //   user.email.should.equal(userTest.email);
+          //   user.myList.should.equal(userTest.myList);
+          });
+      });
+    });
+
   });
 
 });
-
 
