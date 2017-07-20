@@ -22,9 +22,6 @@ function storeData(data) {
 
 const render = (state) => {
   let listResults = '';
-
-
-
   state.users.forEach(function (items) {
     listResults += (`
     `);
@@ -80,12 +77,11 @@ $('#query-form').submit(function (e) {
     });
 });
 
-function recHandler(data) {
+function recHandler() {
 
-  $('#list-results').click(function (e) {
+  $('#list-results').on('click', '.rec-button', function () {
 
-    console.log(e.target);
-    e.preventDefault();
+    //console.log(e.target);
     const url = '/api/recommendations/';
     const query = data.Similar.Results;
     $.ajax({
@@ -108,7 +104,7 @@ function recHandler(data) {
 }
 
 $(function () {
-  recHandler()
+  recHandler(state);
 });
 
 
