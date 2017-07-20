@@ -1,16 +1,20 @@
+
 const url = 'http://localhost:8080/api';
 
+
+
+
 $(function() {
-  $('#query-form').submit(function(e){
+  $('#query-form').submit(function (e) {
     e.preventDefault();
     console.log('Hello');
     const query = $('#query').val();
     console.log(query);
     $.ajax({
-      url, 
+      url,
       method: 'POST',
       //dataType: "json",
-      data: {query}
+      data: { query }
     })
       .done(data => {
         console.log(data);
