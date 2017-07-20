@@ -107,9 +107,50 @@ app.get('/api/users/:id/list', (req, res) => {
 //example url
 // https://tastedive.com/api/similar?q=pulp+fiction&info=1&k=277024-RestfulA-9WI50A5P
 
-app.get('/api/recommendations/:name', (req, res) => {
+app.post('/api/users/list/', (req, res) => {
   console.log('get recommendations is happening');
-  const name = req.params.name;
+  const name = req.body.name;
+  //const query = name.replace(/ /g,"+");
+  //console.log(query);
+  const apiURL = `https://tastedive.com/api/similar?q=${name}&info=1&k=277024-RestfulA-9WI50A5P`;
+  return fetch(apiURL, {
+    'Content-Type': 'application/json'
+  })
+    .then(results => {
+      console.log('results', results.body);
+      return results.json();
+    })
+    .then(resJson => {
+      //console.log(resJson)
+
+      
+
+      return res.status(200).send(resJson);
+
+    //         User.
+    //   find({
+    //     name: results.body
+
+
+    //   })
+    //   return res.status(200).send(resJson)
+    // })
+
+      //mongodb query to post/store to database
+      //mongodb.find
+      //this post stores to myList user
+      //find particular user(based off of _id and store in myList)
+      //get route (done above)
+    })
+    .catch(err => {
+      console.log({err});
+      res.status(500).json({ message: 'Internal error from GET' });
+    });
+});
+
+app.post('/api/recommendations/', (req, res) => {
+  console.log('get recommendations is happening');
+  const name = req.body.name;
   //const query = name.replace(/ /g,"+");
   //console.log(query);
   const apiURL = `https://tastedive.com/api/similar?q=${name}&info=1&k=277024-RestfulA-9WI50A5P`;
@@ -129,6 +170,7 @@ app.get('/api/recommendations/:name', (req, res) => {
       res.status(500).json({ message: 'Internal error from GET' });
     });
 });
+
 
 app.post('/api/signup', (req, res) => {
   console.log('post is happening');

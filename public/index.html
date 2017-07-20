@@ -16,24 +16,28 @@
                 <input type="text" placeholder="username" id="username-input"/>
                 <input type="password" placeholder="password" />
                 <input type="text" placeholder="email address" />
-                <button>Join My-Rex</button>
+                <button id="join-button" class="submit" type="submit">Join My-Rex</button>
             </form>
         </div>
     </div>
 
-    <div class="main-search">
-        <h2>Hello World!</h2>
-        <form class="js-search-form" id="query-form">
+    <div class="main-list">
+        <h2>My-Rex!</h2>
+        <form class="js-list-form" id="query-form">
             <label for="query">Add a title</label>
             <input type="text" id="query" class="js-query">
-            <button id="search-button" class='submit' type="submit">Add</button>
+            <button id="search-button" class="submit" type="submit">Add</button>
         </form>
 
-        <div class="js-did-you-mean" hidden></div>
-
-        <h2>My List</h2>
-        <div class="js-search-results">
+        
+        <div class="js-list-results" id="list-results">
+            <ul></ul>
         </div>
+    </div>
+
+    <div class="recs" hidden>
+        <h2>Recommendations for Query</h2>
+            <ul></ul>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
