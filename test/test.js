@@ -148,7 +148,7 @@ describe('My Rex API Resource', function () {
           .post('/api/signup')
           .send(userTest)
           .then(function (res) {
-            console.log('res!!!', res.body)
+            console.log('res!!!', res.body);
             res.should.have.status(201);
             res.should.be.json;
             res.body.should.be.a('object');
@@ -171,7 +171,7 @@ describe('My Rex API Resource', function () {
     describe('PUT Endpoint', function(){
       it('should update fields in myList', function(){
         const updateData = {
-          name: "Harry Potter",
+          name: 'Harry Potter',
           rating: 4
         };
 
@@ -187,19 +187,19 @@ describe('My Rex API Resource', function () {
           })
           .then(function(res) {
             res.should.have.status(204);
-            return User.findById(updateData.id)
+            return User.findById(updateData.id);
           })
           .then(function(user) {
             const list = user.myList;
-          console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', user);
+            console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', user);
             console.log('*******************************', list[0]);
-           const i = (list.length-1);
-           console.log('####################################', i);
+            const i = (list.length-1);
+            console.log('####################################', i);
             list[i].name.should.equal(updateData.name);
           //   list.rating.should.equal(updateData.rating);
-          })
-      })
-    })
+          });
+      });
+    });
 
     describe('DELETE endpoint', function() {
       it('should delete a user by id', function(){
@@ -219,9 +219,9 @@ describe('My Rex API Resource', function () {
           })
           .then(function(_user){
             should.not.exist(_user);
-          })
-      })
-    })
+          });
+      });
+    });
   });
 
 });
