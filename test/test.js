@@ -142,7 +142,7 @@ describe('My Rex API Resource', function () {
     });
 
     describe('POST Endpoint', function () {
-      it.only('should create a new user', function () {
+      it('should create a new user', function () {
 
         return chai.request(app)
           .post('/api/signup')
@@ -168,6 +168,60 @@ describe('My Rex API Resource', function () {
       });
     });
 
+    describe('PUT Endpoint', function(){
+      it('should update fields in myList', function(){
+        const updateData = {
+          name: "Harry Potter",
+          rating: 4
+        };
+
+        return User
+          .findOne()
+          .then(function(user) {
+            updateData.id = user.id;
+
+            return chai.request(app) 
+              .put(`/api/${testUser.id}`)
+              .auth(userTest.username, userTest.password)
+              .send(updateData);
+          })
+          .then(function(res) {
+            res.should.have.status(204);
+            return User.findById(updateData.id)
+          })
+          .then(function(user) {
+            const list = user.myList;
+          console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', user);
+            console.log('*******************************', list[0]);
+           const i = (list.length-1);
+           console.log('####################################', i);
+            list[i].name.should.equal(updateData.name);
+          //   list.rating.should.equal(updateData.rating);
+          })
+      })
+    })
+
+    describe('DELETE endpoint', function() {
+      it('should delete a user by id', function(){
+        let user;
+
+        return User
+          .findOne()
+          .then(function(_user){
+            user = _user;
+            return chai.request(app)
+              .delete(`/api/users/${testUser.id}`)
+              .auth(userTest.username, userTest.password);
+          })
+          .then(function(res){
+            res.should.have.status(204);
+            return User.findById(user.id);
+          })
+          .then(function(_user){
+            should.not.exist(_user);
+          })
+      })
+    })
   });
 
 });
