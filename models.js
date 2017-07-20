@@ -21,12 +21,12 @@ userSchema.pre('save', function(next){
     return next();
   }
   return next();
-})
+});
 
 //Automatically hashes USER password if password is updated
 userSchema.methods._hashPassword = function(password) {
-    return bcrypt.hashSync(password, 12);
-}
+  return bcrypt.hashSync(password, 12);
+};
 
 userSchema.methods.apiRepr = function() {
   return {

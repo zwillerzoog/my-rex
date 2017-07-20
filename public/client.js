@@ -1,5 +1,12 @@
 
+
+const url = 'http://localhost:8080/api';
+
+
+
+
 $(function() {
+
   $('#register-form').submit(function(e){
     e.preventDefault();
     console.log('Hello');
@@ -7,7 +14,7 @@ $(function() {
     const usernameInput = $('#username-input').val();
     console.log("username: ", usernameInput);
     $.ajax({
-      url, 
+      url,
       method: 'POST',
       //dataType: "json",
       data: {usernameInput}
@@ -33,4 +40,3 @@ $(function() {
       });
   });
 });
-
