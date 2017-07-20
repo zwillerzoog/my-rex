@@ -1,4 +1,3 @@
-
 //1 state
 let state = {
   users: [],
@@ -6,8 +5,8 @@ let state = {
     login: true,
     mainList: false,
     ListResults: false,
-    recs: false
-  }
+    recs: false,
+  },
 };
 
 //2 function
@@ -20,18 +19,17 @@ function storeData(data) {
 
 //3 render
 
-const render = (state) => {
+const render = state => {
   let listResults = '';
-  state.users.forEach(function (items) {
-    listResults += (`
-    `);
+  state.users.forEach(function(items) {
+    listResults += `
+    `;
   });
-
 };
 
 //4 event listeners
 
-$('#register-form').submit(function (e) {
+$('#register-form').submit(function(e) {
   e.preventDefault();
   console.log('Hello');
   const url = 'http://localhost:8080/api/signup';
@@ -41,14 +39,13 @@ $('#register-form').submit(function (e) {
     url,
     method: 'POST',
     //dataType: "json",
-    data: { username: usernameInput }
-  })
-    .done(data => {
-      console.log(data);
-    });
+    data: { username: usernameInput },
+  }).done(data => {
+    console.log(data);
+  });
 });
 
-$('#query-form').submit(function (e) {
+$('#query-form').submit(function(e) {
   e.preventDefault();
   console.log('Hello');
   const url = '/api/users/list/';
@@ -60,54 +57,46 @@ $('#query-form').submit(function (e) {
     //dataType: "json",
     data: {
       name: query,
-      username: 'abcd'
-    }
+      username: 'abcd',
+    },
+  }).done(data => {
+    console.log(data);
 
-  })
-    .done(data => {
-      console.log(data);
+    state.view.ListResults = data;
 
-      let listArray =  `
+    let listArray = `
         <p> ${data.Similar.Info[0].Name} </p>
-        <button type="button" class="rec-button">Rex for ${data.Similar.Info[0].Name} </button>
+        <button type="button" class="rec-button">Rex for ${data.Similar.Info[0]
+          .Name} </button>
         `;
 
-      $('#list-results').append(listArray);
-      console.log('state', state);
-    });
+    $('#list-results').append(listArray);
+    console.log('state', state);
+  });
 });
 
 function recHandler() {
-
-  $('#list-results').on('click', '.rec-button', function () {
-
+  $('#list-results').on('click', '.rec-button', function() {
     //console.log(e.target);
     const url = '/api/recommendations/';
-    const query = data.Similar.Results;
+    const query = state.view.ListResults.Similar.Results;
     $.ajax({
       url,
       method: 'POST',
       //dataType: "json",
-      data: { query } 
+      data: { query },
+    }).done(data => {
+      console.log(data);
 
-    })
-      .done(data => {
-        console.log(data);
-
-        let recArray = `<p> ${data.Similar.Results} </p>
+      let recArray = `<p> ${state.view.ListResults.Similar.Results} </p>
         `;
 
-        $('.recs').append(recArray);
-        console.log('state', state);
-      });
+      $('.recs').append(recArray);
+      console.log('state', state);
+    });
   });
 }
 
-$(function () {
+$(function() {
   recHandler(state);
 });
-
-
-
-
-
