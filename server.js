@@ -3,7 +3,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
 
 const passport = require('passport');
 const { BasicStrategy } = require('passport-http');
@@ -34,7 +34,7 @@ const basicStrategy = new BasicStrategy(function (username, password, done) {
       //   password === user.password;
     })
     .then(isValid => {
-      console.log('isValid', isValid)
+      console.log('isValid', isValid);
       if (!isValid) {
         return done(null, false, { message: 'Incorrect password' });
       }
@@ -141,10 +141,10 @@ app.post('/api/signup', (req, res) => {
       myList: req.body.myList
     })
     .then(
-    results => {
-      console.log(results);
-      res.status(201).json(results.apiRepr());
-    })
+      results => {
+        console.log(results);
+        res.status(201).json(results.apiRepr());
+      })
     .catch(err => {
       console.log('Post isn\'t working');
       res.status(500).json({ message: 'Internal error from Post' });
@@ -154,16 +154,16 @@ app.post('/api/signup', (req, res) => {
 app.put('/api/:id', authenticate, (req, res) => {
   User
     .findByIdAndUpdate(req.params.id,
-    {
+      {
       //will be a set. have to delete the older version of the item
-      $push: {
-        myList: {
-          name: req.body.name,
-          date: req.body.date,
-          rating: req.body.rating
+        $push: {
+          myList: {
+            name: req.body.name,
+            date: req.body.date,
+            rating: req.body.rating
+          }
         }
-      }
-    })
+      })
     .then(results => {
       console.log('results', results);
       res.status(204).send('sent successfully');
