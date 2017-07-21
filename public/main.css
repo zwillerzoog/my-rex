@@ -21,9 +21,10 @@ button {
     padding: 10px;
 }
 
-div, form, img, p, h2, label {
+div, form, img, p, h2, label, h1 {
     background-color: lightgray;
 }
+
 
 p {
     text-align: center;
