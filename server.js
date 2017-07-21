@@ -153,8 +153,9 @@ app.post('/api/recommendations/', (req, res) => {
   let name;
   name = req.body.name;
   //const query = name.replace(/ /g,"+");
-  //console.log(query);
+  console.log('=====', req.body);
   const apiURL = `https://tastedive.com/api/similar?q=${name}&info=1&k=277024-RestfulA-9WI50A5P`;
+  console.log(apiURL)
   return fetch(apiURL, {
     'Content-Type': 'application/json'
   })
@@ -163,7 +164,7 @@ app.post('/api/recommendations/', (req, res) => {
       return results.json();
     })
     .then(resJson => {
-      //console.log(resJson)
+      console.log(resJson)
       return res.status(200).send(resJson);
     })
     .catch(err => {
