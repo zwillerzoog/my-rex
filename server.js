@@ -150,7 +150,8 @@ app.post('/api/users/list/', (req, res) => {
 
 app.post('/api/recommendations/', (req, res) => {
   console.log('get recommendations is happening');
-  const name = req.body.name;
+  let name;
+  name = req.body.name;
   //const query = name.replace(/ /g,"+");
   //console.log(query);
   const apiURL = `https://tastedive.com/api/similar?q=${name}&info=1&k=277024-RestfulA-9WI50A5P`;

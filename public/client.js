@@ -104,10 +104,10 @@ function recHandler() {
       //dataType: "json",
       data: { query },
     }).done(data => {
-        const results = state.view.ListResults.Similar.Results;
+      const results = state.view.ListResults.Similar.Results;
       console.log(state.view.ListResults.Similar.Results[0].Name);
       console.log(typeof type);
-      
+      $('.recs').html(`<h2>My-Rex for ${state.view.ListResults.Similar.Info[0].Name}</h2>`);
       console.log('RESULTS ARRAY FROM RECHANDLER: ', state.view.ListResults.Similar.Results);
       for (let i=1; i < results.length; i++) {
         const name = results[i].Name;

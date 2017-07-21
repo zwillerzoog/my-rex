@@ -17,9 +17,15 @@ The app will allow users to personalize their account
 User Stories
 
 As a user, I should be able to sign up for this app
+
 As a user, I should be able to log in to this app
+
 As a user, I should be able to add media to my personalized list
+
 As a user, I should be able to give a rating and track the date I saw/read/listened
+
 As a user, I should be able to see new recommendations for each entry
+
 As a user, I should be able edit and delete stuff from my list
+
 As a user, I should be able to change password
