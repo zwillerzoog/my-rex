@@ -1,5 +1,70 @@
+* {
+    background-color: lightseagreen;
+}
 .container {
     clear: both;
+}
+
+body {
+    margin: 0 auto;
+    padding: 10px;
+}
+
+button {
+    background-color: goldenrod;
+}
+
+.login {
+    border: 2px solid grey;
+    max-width: 560px; 
+    margin: 0 auto;
+    padding: 10px;
+}
+
+div, form, img, p, h2, label {
+    background-color: lightgray;
+}
+
+p {
+    text-align: center;
+}
+
+.recs {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.recs-title {
+    text-align: center;
+}
+
+.rec-button {
+    position: relative;
+    left: 30%;
+}
+
+#back {
+    position: relative;
+    left: 40%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+input {
+    background-color: whitesmoke;
+    style: none;
+}
+
+.main-list {
+    max-width: 300px;
+    margin-top: 50px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.js-register-form {
+   
+    }
 }
 
 .form {

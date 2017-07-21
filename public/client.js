@@ -131,7 +131,7 @@ function recHandler() {
     }).done(() => {
       const results = state.users.myList.Similar.Results;
       $('.recs').html(
-        `<h2>My-Rex for ${state.users.myList.Similar.Info[0].Name}</h2>
+        `<h2 class="recs-title">My-Rex for ${state.users.myList.Similar.Info[0].Name}</h2>
         <button id="back">Go back to Your List</button>`);
       console.log('RESULTS ARRAY FROM RECHANDLER: ', state.users.myList.Similar.Results);
       for (let i = 1; i < results.length; i++) {

@@ -181,7 +181,7 @@ describe('My Rex API Resource', function () {
             updateData.id = user.id;
 
             return chai.request(app) 
-              .put(`/api/${testUser.id}`)
+              .post(`/api/${testUser.id}`)
               .auth(userTest.username, userTest.password)
               .send(updateData);
           })

@@ -1,5 +1,10 @@
 My-Rex App
 
+Github: https://github.com/zwillerzoog/my-rex.git
+Travis: https://travis-ci.org/zwillerzoog/my-rex
+Heroku:https://floating-scrubland-74394.herokuapp.com/
+Mlab: https://mlab.com/databases/my-rex
+
 Screenshots: http://imgur.com/a/zekUR 
 
 Tech stack: 
