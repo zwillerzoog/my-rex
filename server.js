@@ -205,7 +205,7 @@ app.post('/api/signup', (req, res) => {
     });
 });
 
-app.put('/api/:id', authenticate, (req, res) => {
+app.post('/api/:id', authenticate, (req, res) => {
   User
     .findByIdAndUpdate(req.params.id,
       {
@@ -220,7 +220,8 @@ app.put('/api/:id', authenticate, (req, res) => {
       })
     .then(results => {
       console.log('results', results);
-      res.status(204).send('sent successfully');
+      res.status(201).json(results.apiRepr());
+    //  res.status(201).send('sent successfully');
     })
     .catch(err => {
       console.log(err);
