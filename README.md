@@ -1,11 +1,17 @@
-Recommendation App
+My-Rex App
+
+Screenshots: http://imgur.com/a/zekUR 
+
+Tech stack: 
+    Frontend: HTML, CSS, JavaScript, JQuery
+    Backend: Node, Express, MongoDB, Mongoose, Passport, Passport-HTTP, Bcrypt, Body-Parser, Node Fetch
+        Testing: Mocha, Chai, Faker, Dotenv
 
 wireframe: https://wireframe.cc/rxbKS3
 
 The problem: People want to be introduced to new music, movies, or books, but sometimes don’t know where to look
 
 The solution: Helps people get recommendations of music, movies, or books based off of what their preference is 
-
 
 App Description 
 
