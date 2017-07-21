@@ -109,7 +109,7 @@ function recHandler() {
       console.log(typeof type);
       
       console.log('RESULTS ARRAY FROM RECHANDLER: ', state.view.ListResults.Similar.Results);
-      for (let i=0; i < results.length; i++) {
+      for (let i=1; i < results.length; i++) {
         const name = results[i].Name;
         const type = results[i].Type;
         let recArray = `<p>${name}</p>
