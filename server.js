@@ -110,32 +110,30 @@ app.get('/api/users/:id/list', (req, res) => {
 app.post('/api/users/list/', (req, res) => {
   console.log('get recommendations is happening');
   const name = req.body.name;
-  //const query = name.replace(/ /g,"+");
-  //console.log(query);
   const apiURL = `https://tastedive.com/api/similar?q=${name}&info=1&k=277024-RestfulA-9WI50A5P`;
   return fetch(apiURL, {
     'Content-Type': 'application/json'
   })
     .then(results => {
-      console.log('results', results.body);
       return results.json();
     })
     .then(resJson => {
-      //console.log(resJson)
+    //  
+      console.log(resJson, 'sfsfs')
+       User.update({username: req.body.usernameTest},
+    { "$push": { "myList": {
+        name:'sid',
+        date:'',
+        rating:5
 
-      
-
-      return res.status(200).send(resJson);
-
-    //         User.
-    //   find({
-    //     name: results.body
-
-
-    //   })
-    //   return res.status(200).send(resJson)
-    // })
-
+    } } },
+    { "new": true, "upsert": true },
+    function (err, managerparent) {
+        if (err) throw err;
+        console.log(managerparent);
+        return res.status(200).send(resJson);
+    }
+);
       //mongodb query to post/store to database
       //mongodb.find
       //this post stores to myList user
@@ -153,18 +151,18 @@ app.post('/api/recommendations/', (req, res) => {
   let name;
   name = req.body.name;
   //const query = name.replace(/ /g,"+");
-  console.log('=====', req.body);
+  // console.log('=====', req.body);
   const apiURL = `https://tastedive.com/api/similar?q=${name}&info=1&k=277024-RestfulA-9WI50A5P`;
-  console.log(apiURL)
+  // console.log(apiURL)
   return fetch(apiURL, {
     'Content-Type': 'application/json'
   })
     .then(results => {
-      console.log('results', results.body);
+      // console.log('results', results.body);
       return results.json();
     })
     .then(resJson => {
-      console.log(resJson)
+      // console.log(resJson)
       return res.status(200).send(resJson);
     })
     .catch(err => {
@@ -176,7 +174,7 @@ app.post('/api/recommendations/', (req, res) => {
 
 app.post('/api/signup', (req, res) => {
   console.log('post is happening');
-  console.log(req.body);
+  // console.log(req.body);
   //console.log(req.body.date);
 
 
@@ -187,12 +185,15 @@ app.post('/api/signup', (req, res) => {
   //     res.status(400).json({ message: `Need a value for ${field}` });
   //   }
   //});
+
+console.log('req.body.username', req.body)
+
   User
     .create({
       username: req.body.username,
       password: req.body.password,
       email: req.body.email,
-      //myList: req.body.myList
+      myList: []
     })
     .then(
       results => {
@@ -219,7 +220,7 @@ app.post('/api/:id', authenticate, (req, res) => {
         }
       })
     .then(results => {
-      console.log('results', results);
+      // console.log('results', results);
       res.status(201).json(results.apiRepr());
     //  res.status(201).send('sent successfully');
     })
@@ -233,7 +234,7 @@ app.delete('/api/users/:id', authenticate, (req, res) => {
   User
     .findByIdAndRemove(req.params.id)
     .then(result => {
-      console.log(result);
+      // console.log(result);
       res.status(204).send({ message: 'Deleted' });
     })
     .catch(err => {

@@ -47,6 +47,22 @@ function render(state) {
     // $('.recs').hide()
     // $(`.${state.view}`).show();
 //4 event listeners
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 function addUser() {
   $('#register-form').submit(function (e) {
     e.preventDefault();
@@ -62,6 +78,8 @@ function addUser() {
       data: { username, password, email },
     }).done(data => {
       state.users = data;
+      document.cookie = `username=${username}`
+      console.log()
       console.log('STATE>>>>>>>>>>>>>>>>>>>> FROM ADDUSER', state);
        $('.main-list').removeAttr('hidden');
        $('.login').attr('hidden', true);
@@ -92,12 +110,14 @@ $('#query-form').submit(function (e) {
   e.preventDefault();
   const url = '/api/users/list/';
   let query = $('#query').val();
+  var usernameTest = getCookie('username');
   $.ajax({
     url,
     method: 'POST',
     //dataType: "json",
     data: {
-      name: query
+      name: query,
+      usernameTest
     },
   }).done(data => {
     state.users.myList = data;
@@ -116,8 +136,7 @@ $('#query-form').submit(function (e) {
     }
   });
 });
-function populateRecs() {
-}
+
 function recHandler() {
   $('#list-results').on('click', '.rec-button', function () {
     //console.log(e.target);
