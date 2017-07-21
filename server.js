@@ -175,7 +175,7 @@ app.post('/api/recommendations/', (req, res) => {
 app.post('/api/signup', (req, res) => {
   console.log('post is happening');
   console.log(req.body);
-  console.log(req.body.date);
+  //console.log(req.body.date);
   const requiredFields = ['username', 'password', 'email'];
   requiredFields.forEach(field => {
     if (!(field in req.body && req.body[field])) {
@@ -187,7 +187,7 @@ app.post('/api/signup', (req, res) => {
       username: req.body.username,
       password: req.body.password,
       email: req.body.email,
-      myList: req.body.myList
+      //myList: req.body.myList
     })
     .then(
       results => {
