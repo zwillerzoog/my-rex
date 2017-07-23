@@ -174,7 +174,7 @@ app.post('/api/recommendations/', (req, res) => {
 });
 
 
-app.post('/api/signup', (req, res) => {
+app.post('https://whispering-lowlands-15370.herokuapp.com//api/signup', (req, res) => {
   console.log('post is happening');
   console.log(req.body);
   //console.log(req.body.date);
