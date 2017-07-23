@@ -75,7 +75,7 @@ function addListToState() {
     e.preventDefault();
     console.log('Hello from Query Form');
     const userID = state.users._id;
-    const url = `http://localhost:8080/api/users/${userID}/list`;
+    const url = `/api/users/${userID}/list`;
     const name = $('#query-form').val();
     $.ajax({
       url,
