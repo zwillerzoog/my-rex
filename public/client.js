@@ -51,7 +51,7 @@ function addUser() {
   $('#register-form').submit(function (e) {
     e.preventDefault();
     console.log('Hello');
-    const url = 'http://localhost:8080/api/signup';
+    const url = '/api/signup';
     const username = $('#username-input').val();
     const password = $('#password-input').val();
     const email = $('#email-input').val();
