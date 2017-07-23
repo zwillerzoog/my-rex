@@ -25,6 +25,9 @@ div, form, img, p, h2, label, h1 {
     background-color: lightgray;
 }
 
+div {
+    border: 2px solid grey;
+}
 
 p {
     text-align: center;
