@@ -33,6 +33,14 @@ p {
     text-align: center;
 }
 
+.resName {
+    font-weight: bold;
+}
+
+.resType {
+    font-style: italic;
+}
+
 .recs {
     max-width: 560px;
     margin: 0 auto;

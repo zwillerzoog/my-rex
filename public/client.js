@@ -5,8 +5,8 @@ let state = {
     login: true,
     mainList: false,
     ListResults: false,
-    recs: false,
-  },
+    recs: false
+  }
 };
 //2 function
 function storeData(data) {
@@ -42,13 +42,13 @@ function render(state) {
 //       $('.main-list').attr('hidden', true);
 //     }
 // }
-    // $('.login').hide()
-    // $('.main-list').hide()
-    // $('.recs').hide()
-    // $(`.${state.view}`).show();
+// $('.login').hide()
+// $('.main-list').hide()
+// $('.recs').hide()
+// $(`.${state.view}`).show();
 //4 event listeners
 function addUser() {
-  $('#register-form').submit(function (e) {
+  $('#register-form').submit(function(e) {
     e.preventDefault();
     console.log('Hello');
     const url = '/api/signup';
@@ -59,19 +59,19 @@ function addUser() {
       url,
       method: 'POST',
       //dataType: "json",
-      data: { username, password, email },
+      data: { username, password, email }
     }).done(data => {
       state.users = data;
       console.log('STATE>>>>>>>>>>>>>>>>>>>> FROM ADDUSER', state);
-       $('.main-list').removeAttr('hidden');
-       $('.login').attr('hidden', true);
-       $('.recs').attr('hidden', true);
+      $('.main-list').removeAttr('hidden');
+      $('.login').attr('hidden', true);
+      $('.recs').attr('hidden', true);
       //console.log(state);
     });
   });
 }
 function addListToState() {
-  $('#query-form').submit(function (e) {
+  $('#query-form').submit(function(e) {
     e.preventDefault();
     console.log('Hello from Query Form');
     const userID = state.users._id;
@@ -81,14 +81,14 @@ function addListToState() {
       url,
       method: 'POST',
       //dataType: "json",
-      data: { name },
+      data: { name }
     }).done(data => {
       state.users.myList = data;
       //console.log(state);
     });
   });
 }
-$('#query-form').submit(function (e) {
+$('#query-form').submit(function(e) {
   e.preventDefault();
   const url = '/api/users/list/';
   let query = $('#query').val();
@@ -98,64 +98,69 @@ $('#query-form').submit(function (e) {
     //dataType: "json",
     data: {
       name: query
-    },
+    }
   }).done(data => {
     state.users.myList = data;
     console.log('STATE>>>>>>>>>>>>> FROM QUERY', state);
-    if (state.users.myList !== undefined && state.users.myList.Similar.Results.length === 0) {
+    if (
+      state.users.myList !== undefined &&
+      state.users.myList.Similar.Results.length === 0
+    ) {
       $('.correction').removeAttr('hidden');
       query = $('#query').val('');
     } else {
-      let listArray =
-        `<p> ${data.Similar.Info[0].Name} </p>
+      let listArray = `<p> ${data.Similar.Info[0].Name} </p>
         <button type="button" class="rec-button">Rex for ${data.Similar.Info[0]
-    .Name} </button>`;
+          .Name} </button>`;
       $('.correction').attr('hidden', true);
       $('#list-results').append(listArray);
       query = $('#query').val('');
     }
   });
 });
-function populateRecs() {
-}
+
 function recHandler() {
-  $('#list-results').on('click', '.rec-button', function () {
+  $('#list-results').on('click', '.rec-button', function() {
     //console.log(e.target);
     const url = '/api/recommendations/';
     //const similar = state.view.ListResults.Similar.Results;
     $.ajax({
       url,
-      method: 'POST',
+      method: 'POST'
       //dataType: "json",
       //data: { similar },
     }).done(() => {
       const results = state.users.myList.Similar.Results;
       $('.recs').html(
-        `<h2 class="recs-title">My-Rex for ${state.users.myList.Similar.Info[0].Name}</h2>
-        <button id="back">Go back to Your List</button>`);
-      console.log('RESULTS ARRAY FROM RECHANDLER: ', state.users.myList.Similar.Results);
+        `<h2 class="recs-title">My-Rex for ${state.users.myList.Similar.Info[0]
+          .Name}</h2>
+        <button id="back">Go back to Your List</button>`
+      );
+      console.log(
+        'RESULTS ARRAY FROM RECHANDLER: ',
+        state.users.myList.Similar.Results
+      );
       for (let i = 1; i < results.length; i++) {
         const name = results[i].Name;
         const type = results[i].Type;
-        let recArray = `<p>${name}</p>
-                      <p>${type}</p>`;
+        let recArray = `<p class="resName">${name}</p>
+                      <p class="resType">${type}</p>`;
         $('.recs').append(recArray);
         $('.recs').removeAttr('hidden');
-       $('.login').attr('hidden', true);
-       $('.main-list').attr('hidden', true);
+        $('.login').attr('hidden', true);
+        $('.main-list').attr('hidden', true);
       }
     });
   });
 }
 function backClickHandler() {
   $('.recs').on('click', '#back', function() {
-     $('.main-list').removeAttr('hidden');
-       $('.login').attr('hidden', true);
-       $('.recs').attr('hidden', true);
-       console.log('back was clicked!!!!!');
-  })
+    $('.main-list').removeAttr('hidden');
+    $('.login').attr('hidden', true);
+    $('.recs').attr('hidden', true);
+  });
 }
-$(function () {
+$(function() {
   recHandler(state);
   backClickHandler();
   render(state);
