@@ -1,6 +1,6 @@
 //1 state
 let state = {
-  users: [],
+  myList: [],
   view: {
     login: true,
     mainList: false,
@@ -62,27 +62,10 @@ function addUser() {
       $('.main-list').removeAttr('hidden');
       $('.login').attr('hidden', true);
       $('.recs').attr('hidden', true);
-      //console.log(state);
     });
   });
 }
-function addListToState() {
-  $('#query-form').submit(function(e) {
-    e.preventDefault();
-    const userID = state.users._id;
-    const url = `/api/users/${userID}/list`;
-    const name = $('#query-form').val();
-    $.ajax({
-      url,
-      method: 'POST',
-      //dataType: "json",
-      data: { name }
-    }).done(data => {
-      state.users.myList = data;
-      //console.log(state);
-    });
-  });
-}
+
 $('#query-form').submit(function(e) {
   e.preventDefault();
   const url = '/api/users/list/';
@@ -95,55 +78,55 @@ $('#query-form').submit(function(e) {
       name: query
     }
   }).done(data => {
-    state.users.myList = data;
-    if (
-      state.users.myList !== undefined &&
-      state.users.myList.Similar.Results.length === 0
-    ) {
-      $('.correction').removeAttr('hidden');
-      query = $('#query').val('');
-    } else {
-      let listArray = `<p> ${data.Similar.Info[0].Name} </p>
-        <button type="button" class="rec-button">Rex for ${data.Similar.Info[0]
-          .Name} </button>`;
-      $('.correction').attr('hidden', true);
-      $('#list-results').append(listArray);
-      query = $('#query').val('');
+    state.myList.push(data);
+    for (var i = 0; i < data.Similar.Info.length; i++) {
+      if (
+        state.myList !== undefined &&
+        state.myList[i].Similar.Results.length === 0
+      ) {
+        $('.correction').removeAttr('hidden');
+        query = $('#query').val('');
+      } else {
+        let listArray = `<p> ${data.Similar.Info[0].Name} </p>
+          <button type="button" class="rec-button">Rex for ${data.Similar.Info[0].Name} </button>`;
+        $('.correction').attr('hidden', true);
+        $('#list-results').append(listArray);
+        query = $('#query').val('');
+      }
     }
   });
 });
 
 function recHandler() {
-  $('#list-results').on('click', '.rec-button', function() {
-    console.log(state.users.myList.Similar.Info[0].Name);
+  $('#list-results').on('click', '.rec-button', function(e) {
+    const query = e.target.textContent;
+    // shouldn't this use an ID to get an exact rec?
+    // how can we store the rec ID in the DOM on render
+    // to easily pass to this function?
+
     const url = '/api/recommendations/';
-    //const similar = state.view.ListResults.Similar.Results;
+
     $.ajax({
       url,
-      method: 'POST'
-      //dataType: "json",
-      //data: { similar },
+      method: 'GET',
+      dataType: 'json',
+      contentType: 'application/json',
+      data: { q: query }
     }).done(() => {
-      const results = state.users.myList.Similar.Results;
+      const resultsList = state.myList;
       $('.recs').html(
-        `<h2 class="recs-title">My Rex for ${state.users.myList.Similar.Info[0]
+        `<h2 class="recs-title">My Rex for ${state.myList[0].Similar.Info[0]
           .Name}</h2>
         <button id="back">Go back to Your List</button>`
       );
-      // console.log(
-      //   'RESULTS ARRAY FROM RECHANDLER: ',
-      //   state.users.myList.Similar.Results);
 
-      for (let i = 1; i < results.length; i++) {
-        const name = results[i].Name;
-        const type = results[i].Type;
-        let recArray = `<p class="resName">${name}</p>
-                      <p class="resType">${type}</p>`;
-        $('.recs').append(recArray);
-        $('.recs').removeAttr('hidden');
-        $('.login').attr('hidden', true);
-        $('.main-list').attr('hidden', true);
-      }
+  
+      let recArray = `<p class="resName">${name}</p>
+      <p class="resType">${type}</p>`;
+      $('.recs').append(recArray);
+      $('.recs').removeAttr('hidden');
+      $('.login').attr('hidden', true);
+      $('.main-list').attr('hidden', true);
     });
   });
 }

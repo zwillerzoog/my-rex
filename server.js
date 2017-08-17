@@ -148,23 +148,24 @@ app.post('/api/users/list/', (req, res) => {
     });
 });
 
-app.post('/api/recommendations/', (req, res) => {
-  console.log('get recommendations is happening');
+app.get('/api/recommendations', (req, res) => {
+  console.log(req.query);
   let name;
   name = req.body.name;
   //const query = name.replace(/ /g,"+");
-  console.log('=====', req.body);
-  const apiURL = `https://tastedive.com/api/similar?q=${name}&info=1&k=277024-RestfulA-9WI50A5P`;
-  console.log(apiURL)
+  console.log('=====', req.body.name);
+
+  const apiURL = `https://tastedive.com/api/similar?q=${req.query.q}&info=1&k=277024-RestfulA-9WI50A5P`;
+  console.log('seeing if this works!!', apiURL)
   return fetch(apiURL, {
     'Content-Type': 'application/json'
   })
     .then(results => {
-      console.log('results', results.body);
+      // console.log('results', results.body);
       return results.json();
     })
     .then(resJson => {
-      console.log(resJson)
+      // console.log(resJson)
       return res.status(200).send(resJson);
     })
     .catch(err => {
@@ -173,6 +174,9 @@ app.post('/api/recommendations/', (req, res) => {
     });
 });
 
+app.get('/api/recommendations/:id', (req, res) => {
+  // get the data stored about exactly 1 recommendation 
+});
 
 app.post('/api/signup', (req, res) => {
   console.log('post is happening');
