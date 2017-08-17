@@ -12,22 +12,22 @@ This application allows users to create a list of their favorite things and sear
 
 ![My Rex gif](/images/my-rex.gif?raw=true "My Rex")
 
-##Tech stack: 
+##Tech stack
     Frontend: HTML, CSS, JavaScript, JQuery
     Backend: Node, Express, MongoDB, Mongoose, Passport, Passport-HTTP, Bcrypt, Body-Parser, Node Fetch
         Testing: Mocha, Chai, Faker, Dotenv
 
-###Github: 
+###Github 
 https://github.com/zwillerzoog/my-rex.git
 
-###Travis: 
+###Travis 
 https://travis-ci.org/zwillerzoog/my-rex
 
-###Mlab: 
+###Mlab
 https://mlab.com/databases/my-rex
 
-###More Screenshots: 
+###More Screenshots 
 http://imgur.com/a/zekUR 
 
-###Wireframe: 
+###Wireframe
 https://wireframe.cc/rxbKS3
