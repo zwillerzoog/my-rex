@@ -1,4 +1,6 @@
-My-Rex App
+My Rex App
+
+![My Rex gif](/images/my-rex.gif?raw=true "My Rex")
 
 Github: https://github.com/zwillerzoog/my-rex.git
 
