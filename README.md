@@ -7,27 +7,27 @@ People want to be introduced to new music, movies, or books, but sometimes donâ€
 ## The solution: 
 Helps people get recommendations of music, movies, or books based off of what their preference is 
 
-##App Description 
+**App Description**
 This application allows users to create a list of their favorite things and search recommendations based off of those inputs
 
 ![My Rex gif](/images/my-rex.gif?raw=true "My Rex")
 
-##Tech stack
+**Tech stack**
     Frontend: HTML, CSS, JavaScript, JQuery
     Backend: Node, Express, MongoDB, Mongoose, Passport, Passport-HTTP, Bcrypt, Body-Parser, Node Fetch
         Testing: Mocha, Chai, Faker, Dotenv
 
-###Github 
+**Github** 
 https://github.com/zwillerzoog/my-rex.git
 
-###Travis 
+**Travis** 
 https://travis-ci.org/zwillerzoog/my-rex
 
-###Mlab
+**Mlab**
 https://mlab.com/databases/my-rex
 
-###More Screenshots 
+**More Screenshots**
 http://imgur.com/a/zekUR 
 
-###Wireframe
+**Wireframe**
 https://wireframe.cc/rxbKS3
