@@ -1,6 +1,7 @@
 //1 state
 let state = {
   myList: [],
+  test: [],
   recommendations: [],
   view: {
     login: true,
@@ -90,8 +91,8 @@ $('#query-form').submit(function(e) {
         query = $('#query').val('');
       } else {
         let listArray = `<p> ${data.Similar.Info[0].Name} </p>
-          <button type="button" class="rec-button">Rex for ${data.Similar
-            .Info[0].Name} </button>`;
+          <button type="button" class="rec-button">${data.Similar.Info[0]
+            .Name} </button>`;
         $('.correction').attr('hidden', true);
         $('#list-results').append(listArray);
         query = $('#query').val('');
@@ -115,23 +116,23 @@ function recHandler(recData) {
       dataType: 'json',
       contentType: 'application/json',
       data: { q: query }
-    }).done(() => {
+    }).done(recData => {
+      console.log(recData);
       $('.recs').html(
-        `<h2 class="recs-title">${query}</h2>
+        `<h2 class="recs-title">My Rex for ${query}</h2>
         <button id="back">Go Back to Your List</button>`
       );
 
-      console.log('original query in', state.myList[0].Similar.Info[0].Name);
-      console.log(' query data?', query);
       console.log('recdata', recData);
 
-
-      for (var i = 0; i < 20; i++) {
-      
-        let name = recData.myList[0].Similar.Results[i].Name;
-        let type = recData.myList[0].Similar.Results[i].Type;
-        i++;
-      
+      // for (var i = 0; i < 20; i++) {
+      //   let name;
+      //   let type;
+      //   for (var j = 0; j < recData.myList.length; j++) {
+      //     name = recData.myList[j].Similar.Results[i].Name;
+      //     type = recData.myList[j].Similar.Results[i].Type;
+      //   }
+      //   i++;
 
       let recArray = `<p class="resName">${name}</p>
       <p class="resType">${type}</p>`;
@@ -139,7 +140,7 @@ function recHandler(recData) {
       $('.recs').removeAttr('hidden');
       $('.login').attr('hidden', true);
       $('.main-list').attr('hidden', true);
-      }
+      // }
     });
   });
 }
