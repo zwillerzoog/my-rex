@@ -1,6 +1,7 @@
 //1 state
 let state = {
   myList: [],
+  recommendations: [],
   view: {
     login: true,
     mainList: false,
@@ -44,6 +45,7 @@ function render(state) {
 // $('.main-list').hide()
 // $('.recs').hide()
 // $(`.${state.view}`).show();
+
 //4 event listeners
 function addUser() {
   $('#register-form').submit(function(e) {
@@ -88,16 +90,18 @@ $('#query-form').submit(function(e) {
         query = $('#query').val('');
       } else {
         let listArray = `<p> ${data.Similar.Info[0].Name} </p>
-          <button type="button" class="rec-button">Rex for ${data.Similar.Info[0].Name} </button>`;
+          <button type="button" class="rec-button">Rex for ${data.Similar
+            .Info[0].Name} </button>`;
         $('.correction').attr('hidden', true);
         $('#list-results').append(listArray);
         query = $('#query').val('');
+        const recData = data;
       }
     }
   });
 });
 
-function recHandler() {
+function recHandler(recData) {
   $('#list-results').on('click', '.rec-button', function(e) {
     const query = e.target.textContent;
     // shouldn't this use an ID to get an exact rec?
@@ -105,7 +109,6 @@ function recHandler() {
     // to easily pass to this function?
 
     const url = '/api/recommendations/';
-
     $.ajax({
       url,
       method: 'GET',
@@ -113,20 +116,30 @@ function recHandler() {
       contentType: 'application/json',
       data: { q: query }
     }).done(() => {
-      const resultsList = state.myList;
       $('.recs').html(
-        `<h2 class="recs-title">My Rex for ${state.myList[0].Similar.Info[0]
-          .Name}</h2>
-        <button id="back">Go back to Your List</button>`
+        `<h2 class="recs-title">${query}</h2>
+        <button id="back">Go Back to Your List</button>`
       );
 
-  
+      console.log('original query in', state.myList[0].Similar.Info[0].Name);
+      console.log(' query data?', query);
+      console.log('recdata', recData);
+
+
+      for (var i = 0; i < 20; i++) {
+      
+        let name = recData.myList[0].Similar.Results[i].Name;
+        let type = recData.myList[0].Similar.Results[i].Type;
+        i++;
+      
+
       let recArray = `<p class="resName">${name}</p>
       <p class="resType">${type}</p>`;
       $('.recs').append(recArray);
       $('.recs').removeAttr('hidden');
       $('.login').attr('hidden', true);
       $('.main-list').attr('hidden', true);
+      }
     });
   });
 }
