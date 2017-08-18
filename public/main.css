@@ -1,5 +1,6 @@
 * {
     background-color: lightseagreen;
+    border-radius: 5px;
 }
 .container {
     clear: both;
@@ -17,7 +18,9 @@ button {
 .login {
     border: 2px solid grey;
     max-width: 560px; 
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
     padding: 10px;
 }
 
