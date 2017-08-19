@@ -90,9 +90,12 @@ $('#query-form').submit(function(e) {
         $('.correction').removeAttr('hidden');
         query = $('#query').val('');
       } else {
-        let listArray = `<p> ${data.Similar.Info[0].Name} </p>
+        let listArray = `
+        
+        
           <button type="button" class="rec-button">${data.Similar.Info[0]
-            .Name} </button>`;
+            .Name}</button>
+            <p class="click-for-recs"> click for recommendations </p>`;
         $('.correction').attr('hidden', true);
         $('#list-results').append(listArray);
         query = $('#query').val('');
@@ -101,7 +104,7 @@ $('#query-form').submit(function(e) {
     }
   });
 });
-
+// <p> ${data.Similar.Info[0].Name} </p>
 function recHandler(recData) {
   $('#list-results').on('click', '.rec-button', function(e) {
     const query = e.target.textContent;

@@ -52,7 +52,7 @@ p {
 
 .rec-button {
     position: relative;
-    left: 30%;
+    left: 40%;
 }
 
 #back {
@@ -84,6 +84,10 @@ input {
     text-align: center;
     padding: 10px;
     margin-bottom: 5px;
+}
+
+.click-for-recs {
+    font-size: 10px;
 }
 
 .hidden {
