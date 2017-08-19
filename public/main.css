@@ -30,6 +30,13 @@ div, form, img, p, h2, label, h1 {
     background-color: lightgray;
 }
 
+.main-title {
+    font-family: 'Impact', sans-serif;
+    font-size: 40px;
+    color: lightseagreen;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
 div {
     border: 2px solid grey;
 }
