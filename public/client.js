@@ -2,7 +2,7 @@
 let state = {
   myList: [],
   test: [],
-  recommendations: [],
+  currentSelection: [],
   view: {
     login: true,
     mainList: false,
@@ -117,33 +117,29 @@ function recHandler(recData) {
       contentType: 'application/json',
       data: { q: query }
     }).done(recData => {
-      console.log(recData);
       $('.recs').html(
         `<h2 class="recs-title">My Rex for ${query}</h2>
         <button id="back">Go Back to Your List</button>`
       );
 
-      console.log('recdata', recData);
+      state.currentSelection = recData.Similar.Info[0].Name;
+      for (var i = 0; i < 10; i++) {
+        if (state.currentSelection === recData.Similar.Info[0].Name) {
+          let name = recData.Similar.Results[i].Name;
+          let type = recData.Similar.Results[i].Type;
 
-      // for (var i = 0; i < 20; i++) {
-      //   let name;
-      //   let type;
-      //   for (var j = 0; j < recData.myList.length; j++) {
-      //     name = recData.myList[j].Similar.Results[i].Name;
-      //     type = recData.myList[j].Similar.Results[i].Type;
-      //   }
-      //   i++;
-
-      let recArray = `<p class="resName">${name}</p>
+          let recArray = `<p class="resName">${name}</p>
       <p class="resType">${type}</p>`;
-      $('.recs').append(recArray);
-      $('.recs').removeAttr('hidden');
-      $('.login').attr('hidden', true);
-      $('.main-list').attr('hidden', true);
-      // }
+          $('.recs').append(recArray);
+          $('.recs').removeAttr('hidden');
+          $('.login').attr('hidden', true);
+          $('.main-list').attr('hidden', true);
+        }
+      }
     });
   });
 }
+
 function backClickHandler() {
   $('.recs').on('click', '#back', function() {
     $('.main-list').removeAttr('hidden');
