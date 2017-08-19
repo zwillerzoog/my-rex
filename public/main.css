@@ -14,6 +14,11 @@ button {
     background-color: goldenrod;
 }
 
+button:hover {
+    color: darkcyan;
+    cursor: pointer;
+}
+
 .login {
     border: 2px solid grey;
     max-width: 560px; 
