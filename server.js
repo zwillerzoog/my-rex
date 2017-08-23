@@ -233,6 +233,9 @@ app.post('/api/:id', authenticate, (req, res) => {
     });
 });
 
+app.put('/api/users/:id', authenticate, (req, res) => {
+});
+
 app.delete('/api/users/:id', authenticate, (req, res) => {
   User
     .findByIdAndRemove(req.params.id)
