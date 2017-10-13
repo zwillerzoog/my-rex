@@ -112,7 +112,7 @@ function recHandler(recData) {
     // how can we store the rec ID in the DOM on render
     // to easily pass to this function?
 
-    const url = '/api/recommendations/';
+    const url = '/api/recommendations/'
     $.ajax({
       url,
       method: 'GET',
