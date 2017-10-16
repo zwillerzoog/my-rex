@@ -19,8 +19,8 @@ const { PORT, DATABASE_URL } = require('./config');
 const { User } = require('./models');
 
 const {app, runServer, closeServer} = require('./server');
-//JUST TRYING THIS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// mongoose.connect(DATABASE_URL, () => {
+
+mongoose.connect(DATABASE_URL, () => {
 
 //   User
 //     .findByIdAndUpdate('596e57197b23864b3c305f26',
@@ -107,7 +107,7 @@ const {app, runServer, closeServer} = require('./server');
   //     //delete
 
   //})
-//JUST TRYING THIS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// });
+
+});
 
 
