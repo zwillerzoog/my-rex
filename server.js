@@ -28,7 +28,6 @@ app.use(function (req, res, next) {
 
 const basicStrategy = new BasicStrategy(function (username, password, done) {
   let user;
-  console.log(username, 'username');
   User
     .findOne({ username: username })
 
@@ -37,12 +36,10 @@ const basicStrategy = new BasicStrategy(function (username, password, done) {
       if (!user) {
         return done(null, false, { message: 'Incorrect username' });
       }
-      //console.log('bcrypt', bcrypt.compare(password, user.password));
       return bcrypt.compare(password, user.password);
       //   password === user.password;
     })
     .then(isValid => {
-      console.log('isValid', isValid);
       if (!isValid) {
         return done(null, false, { message: 'Incorrect password' });
       }
@@ -60,15 +57,12 @@ const authenticate = passport.authenticate('basic', { session: false });
 //Get all User objects
 
 app.get('/api/users', (req, res) => {
-  console.log('get all is happening');
   User
     .find()
     .then(users => {
-      console.log(users);
       res.status(200).json(users);
     })
     .catch(err => {
-      console.log('testing');
       res.status(500).json({ message: 'Internal error from GET' });
     });
 });
@@ -76,15 +70,12 @@ app.get('/api/users', (req, res) => {
 //Get one unique list object
 
 app.get('/api/users/:id', (req, res) => {
-  console.log('get by id is happening');
   User
     .findById(req.params.id)
     .then(user => {
-      console.log(user);
       res.status(200).json(user);
     })
     .catch(err => {
-      console.log('testing');
       res.status(500).json({ message: 'Internal error from GET' });
     });
 });
@@ -92,15 +83,12 @@ app.get('/api/users/:id', (req, res) => {
 //Get All endpoint for only the list values
 
 app.get('/api/users/:id/list', (req, res) => {
-  console.log('get by id is happening');
   User
     .findById(req.params.id)
     .then(user => {
-      console.log(user);
       res.status(200).json(user.myList);
     })
     .catch(err => {
-      console.log(err);
       res.status(500).json({ message: 'Internal error from GET' });
     });
 });
@@ -109,23 +97,16 @@ app.get('/api/users/:id/list', (req, res) => {
 // https://tastedive.com/api/similar?q=pulp+fiction&info=1&k=277024-RestfulA-9WI50A5P
 
 app.post('/api/users/list/', (req, res) => {
-  console.log('get recommendations is happening');
   const name = req.body.name;
   //const query = name.replace(/ /g,"+");
-  //console.log(query);
   const apiURL = `https://tastedive.com/api/similar?q=${name}&info=1&k=277024-RestfulA-9WI50A5P`;
   return fetch(apiURL, {
     'Content-Type': 'application/json'
   })
     .then(results => {
-      console.log('results', results.body);
       return results.json();
     })
     .then(resJson => {
-      //console.log(resJson)
-
-      
-
       return res.status(200).send(resJson);
 
     //         User.
@@ -150,27 +131,21 @@ app.post('/api/users/list/', (req, res) => {
 });
 
 app.get('/api/recommendations', (req, res) => {
-  console.log(req.query);
   let name;
   name = req.body.name;
   //const query = name.replace(/ /g,"+");
-  console.log('=====', req.body.name);
 
   const apiURL = `https://tastedive.com/api/similar?q=${req.query.q}&info=1&k=277024-RestfulA-9WI50A5P`;
-  console.log('seeing if this works!!', apiURL)
   return fetch(apiURL, {
     'Content-Type': 'application/json'
   })
     .then(results => {
-      // console.log('results', results.body);
       return results.json();
     })
     .then(resJson => {
-      // console.log(resJson)
       return res.status(200).send(resJson);
     })
     .catch(err => {
-      console.log({err});
       res.status(500).json({ message: 'Internal error from GET' });
     });
 });
@@ -180,18 +155,6 @@ app.get('/api/recommendations/:id', (req, res) => {
 });
 
 app.post('/api/signup', (req, res) => {
-  console.log('post is happening');
-  console.log(req.body);
-  //console.log(req.body.date);
-
-
- //// ????? UNCOMMENT THIS ??????????????????????????????????????????????????????????????????????????????
-  // const requiredFields = ['username', 'password', 'email'];
-  // requiredFields.forEach(field => {
-  //   if (!(field in req.body && req.body[field])) {
-  //     res.status(400).json({ message: `Need a value for ${field}` });
-  //   }
-  //});
   User
     .create({
       username: req.body.username,
@@ -224,7 +187,6 @@ app.post('/api/:id', authenticate, (req, res) => {
         }
       })
     .then(results => {
-      console.log('results', results);
       res.status(201).json(results.apiRepr());
     //  res.status(201).send('sent successfully');
     })
@@ -241,7 +203,6 @@ app.delete('/api/users/:id', authenticate, (req, res) => {
   User
     .findByIdAndRemove(req.params.id)
     .then(result => {
-      console.log(result);
       res.status(204).send({ message: 'Deleted' });
     })
     .catch(err => {
@@ -261,6 +222,8 @@ app.use('*', function (req, res) {
 let server;
 
 function runServer(dbUrl) {
+  console.log('HI THERE')
+  console.log('dbUrl', dbUrl);
   return new Promise((resolve, reject) => {
     mongoose.connect(dbUrl, err => {
       if (err) {
