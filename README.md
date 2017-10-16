@@ -22,7 +22,7 @@ Follow step by step for installation in the command line.
 * [Heroku](https://www.heroku.com//) - Host
 
 **Useful Links**
-* [Github](https://github.com/joncancode/my-rex)
+* [Github](https://github.com/zwillerzoog/my-rex)
 * [Travis](https://travis-ci.org/zwillerzoog/my-rex)
 * [Mlab](https://mlab.com/databases/my-rex)
 
