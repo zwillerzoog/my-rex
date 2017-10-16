@@ -6,7 +6,7 @@
 Follow step by step for installation in the command line.
 
 1. In the root folder of the project ```npm install  ```
-2. In the root folder of the project run ```npm run dev```
+2. In the root folder of the project run ```npm run start```
 
 ![My Rex gif](/images/my-rex.gif?raw=true "My Rex")
 
