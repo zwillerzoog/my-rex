@@ -228,7 +228,7 @@ function runServer(dbUrl) {
   console.log('HI THERE')
   console.log('dbUrl', dbUrl);
   return new Promise((resolve, reject) => {
-    mongoose.connect(dbUrl, err => {
+    mongoose.connect(dbUrl, {useMongoClient: true}, err => {
       if (err) {
         return reject(err);
       }
