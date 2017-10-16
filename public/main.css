@@ -1,6 +1,7 @@
 * {
     background-color: lightseagreen;
 }
+
 .container {
     clear: both;
 }
@@ -21,7 +22,7 @@ button:hover {
 
 .login {
     border: 2px solid grey;
-    max-width: 560px; 
+    max-width: 590px; 
     margin: 0 auto;
     padding: 10px;
 }
@@ -35,6 +36,7 @@ div, form, img, p, h2, label, h1 {
     font-size: 40px;
     color: lightseagreen;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    margin-right: 100px;
 }
 
 div {
@@ -62,9 +64,25 @@ p {
     text-align: center;
 }
 
+#register-form{
+    padding: 5px;
+}
+
 .rec-button {
     position: relative;
-    left: 40%;
+    /* left: 40%; */
+    align-content: center;
+    padding: 4px;
+    min-width: 394px;
+    font-size: 18px;
+}
+#query-form {
+    text-align: center;
+    font-size: 18px;
+}
+
+#list-results {
+    max-width: 394px;
 }
 
 #back {
@@ -80,15 +98,12 @@ input {
 }
 
 .main-list {
-    max-width: 300px;
+    max-width: 400px;
     margin-top: 50px;
     margin: 0 auto;
     padding: 10px;
 }
 
-.js-register-form {
-   
-    }
 }
 
 .form {
@@ -99,7 +114,7 @@ input {
 }
 
 .click-for-recs {
-    font-size: 10px;
+    font-size: 14px;
 }
 
 .hidden {

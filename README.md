@@ -1,33 +1,30 @@
-# My Rex App
-https://whispering-lowlands-15370.herokuapp.com/ 
+# [My Rex](https://whispering-lowlands-15370.herokuapp.com/)
+[My Rex](https://whispering-lowlands-15370.herokuapp.com/) provides a way for users to list titles they like, then see what they may enjoy, based on their preferences. Users can list movies, books, TV shows, and music, then discover what they may be missing.
 
-## The problem: 
-People want to be introduced to new music, movies, or books, but sometimes don’t know where to look
+## Installation guide: 
 
-## The solution: 
-Helps people get recommendations of music, movies, or books based off of what their preference is 
+Follow step by step for installation in the command line.
 
-**App Description**
-This application allows users to create a list of their favorite things and search recommendations based off of those inputs
+1. In the root folder of the project ```npm install  ```
+2. In the root folder of the project run ```npm run dev```
 
 ![My Rex gif](/images/my-rex.gif?raw=true "My Rex")
 
+
 **Tech stack**
-    Frontend: HTML, CSS, JavaScript, JQuery
-    Backend: Node, Express, MongoDB, Mongoose, Passport, Passport-HTTP, Bcrypt, Body-Parser, Node Fetch
-        Testing: Mocha, Chai, Faker, Dotenv
+* [JavaScript](https://stackoverflow.com/questions/tagged/javascript) 
+* [jQuery](https://jquery.com/) 
+* [Node.js](https://nodejs.org/en/docs/) - Back End
+* [MongoDB](https://docs.mongodb.com/) - Database
+* [Passport.js](http://passportjs.org/docs) - Authentication
+* [Mocha](https://mochajs.org/) - Testing
+* [Chai](https://www.chaijs.com/) - Testing
+* [Heroku](https://www.heroku.com//) - Host
 
-**Github** 
-https://github.com/zwillerzoog/my-rex.git
+**Useful Links**
+* [Github](https://github.com/zwillerzoog/my-rex)
+* [Travis](https://travis-ci.org/zwillerzoog/my-rex)
+* [Mlab](https://mlab.com/databases/my-rex)
 
-**Travis** 
-https://travis-ci.org/zwillerzoog/my-rex
-
-**Mlab**
-https://mlab.com/databases/my-rex
-
-**More Screenshots**
-http://imgur.com/a/zekUR 
-
-**Wireframe**
-https://wireframe.cc/rxbKS3
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details

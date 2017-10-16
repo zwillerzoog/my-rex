@@ -1,56 +1,57 @@
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="main.css">
-    <title>My Rex</title>
-    <link rel="shortcut icon" href="https://image.flaticon.com/icons/png/256/47/47052.png">
-</head>
-
-<body>
-
-    <div class="login">
-        <h1 class="main-title">Welcome to My Rex</h1>
-        <p>Your virtual home for Media and Recommendations!</p>
-        <p>Use this form to login and find curated recommendations</p>
-        <div class="form">
-            <form class="js-register-form" id="register-form">
-                <input type="text" placeholder="username" id="username-input" />
-                <input type="password" placeholder="password" id="password-input" />
-                <input type="text" placeholder="email address" id="email-input" />
-                <button id="join-button" class="submit" type="submit">Join My Rex</button>
-                <img src="https://image.flaticon.com/icons/png/256/47/47052.png" alt="trex" width="65" height="70">
-            </form>
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="main.css">
+        <title>My Rex</title>
+        <link rel="shortcut icon" href="https://image.flaticon.com/icons/png/256/47/47052.png">
+    </head>
+    
+    <body>
+    
+        <div class="login">
+            <h1 class="main-title">Welcome to My Rex</h1>
+            <p>My Rex is your virtual home for getting recommendations!</p>
+            <p>Create a list of your favorite music, TV shows, books, and movies.</p>
+            <p>We'll let you know what else you may enjoy.</p>
+            <div class="form">
+                <form class="js-register-form" id="register-form">
+                    <input type="text" placeholder="username" id="username-input" />
+                    <input type="password" placeholder="password" id="password-input" />
+                    <input type="text" placeholder="email address" id="email-input" />
+                    <button id="join-button" class="submit" type="submit">Create a List</button>
+                    <img src="https://image.flaticon.com/icons/png/256/47/47052.png" alt="trex" width="65" height="70">
+                </form>
+            </div>
         </div>
-    </div>
-
-    <div class="main-list" hidden>
-        <h2></h2>
-        <form class="js-list-form" id="query-form">
-            <label for="query">Add a title</label>
-            <input type="text" id="query" class="js-query">
-            <button id="search-button" class="submit" type="submit">Add</button>
-        </form>
-
-        <div class="correction" hidden>Please enter a valid term</div>
-
-        <div class="js-list-results" id="list-results">
+    
+        <div class="main-list" hidden>
+            <h2></h2>
+            <form class="js-list-form" id="query-form">
+                <label for="query">Add a title</label>
+                <input type="text" id="query" class="js-query">
+                <button id="search-button" class="submit" type="submit">Add</button>
+            </form>
+    
+            <div class="correction" hidden>Please enter a valid term</div>
+    
+            <div class="js-list-results" id="list-results">
+                <ul></ul>
+            </div>
+        </div>
+    
+    
+        <div class="recs" hidden>
+            
             <ul></ul>
         </div>
-    </div>
-
-
-    <div class="recs" hidden>
-        
-        <ul></ul>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-    <script type="text/javascript" src="client.js"></script>
-</body>
-
-
-
-</html>
+    
+        <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+        <script type="text/javascript" src="client.js"></script>
+    </body>
+    
+    
+    
+    </html>
