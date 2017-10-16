@@ -4,12 +4,13 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 const fetch = require('node-fetch');
+mongoose.Promise = global.Promise;
 
 const passport = require('passport');
 const { BasicStrategy } = require('passport-http');
 const bcrypt = require('bcrypt');
 
-mongoose.Promise = global.Promise;
+
 const { PORT, DATABASE_URL } = require('./config');
 const { User } = require('./models');
 
