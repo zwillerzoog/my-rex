@@ -46,7 +46,10 @@ const basicStrategy = new BasicStrategy(function (username, password, done) {
       else {
         return done(null, user);
       }
-    });
+    })
+    .catch(err => {
+      console.log('error: ', err);
+    })
 });
 
 passport.use(basicStrategy);
